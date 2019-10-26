@@ -13,13 +13,13 @@ buildscript {
 version "0.1"
 group "mvc"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"com.github.erdi.webdriver-binaries"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"com.bertramlabs.asset-pipeline"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "org.grails.grails-web"
+apply plugin: "com.github.erdi.webdriver-binaries"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "com.bertramlabs.asset-pipeline"
 
 repositories {
     maven { url "https://repo.grails.org/grails/core" }
@@ -70,15 +70,14 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-api:3.14.0"
     testCompile "org.seleniumhq.selenium:selenium-support:3.14.0"
     testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.14.0"
-    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:3.14.0"
 }
 
 bootRun {
     jvmArgs(
-        '-Dspring.output.ansi.enabled=always', 
-        '-noverify', 
-        '-XX:TieredStopAtLevel=1',
-        '-Xmx1024m')
+            '-Dspring.output.ansi.enabled=always',
+            '-noverify',
+            '-XX:TieredStopAtLevel=1',
+            '-Xmx1024m')
     sourceResources sourceSets.main
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
@@ -86,16 +85,13 @@ bootRun {
 
 webdriverBinaries {
     chromedriver '2.45.0'
-    geckodriver '0.24.0'
 }
 
 tasks.withType(Test) {
-    systemProperty "geb.env", System.getProperty('geb.env')
+    systemProperty "geb.env", 'chromeHeadless'
     systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
-    systemProperty "webdriver.chrome.driver", System.getProperty('webdriver.chrome.driver')
-    systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
+    systemProperty "webdriver.chrome.driver", 'src/integration-test/resources/chromedriver'
 }
-
 
 assets {
     minifyJs = true
